@@ -1,0 +1,54 @@
+sign:
+  tree:
+    maximumLeaf: 1024 # Maximum leaves number per merkle tree.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
+    health:
+      show-details: always
+spring:
+  data:
+    mongodb:
+      auto-index-creation: false
+      uri: mongodb://root:password@mongo:27017/tezos-signature?authSource=admin
+  web:
+    resources:
+      static-locations: "classpath:/public-web-resources/"
+logging:
+  level:
+    root: info
+    com:
+      sword: debug
+    web: warn
+    org:
+      springframework:
+        security: info
+jwt:
+  secret: ffe50f21d8359de7245dc13777812c2a # Secret for authentication tokens generation/parsing.
+  issuer: "Tezos@Signature"
+  duration: 2h # Expiration duration of client session tokens.
+tezos:
+  contract:
+    address: "KT1JApJG4mxQK1UhLrGCCTw9QqDiLPWhjkTu" # Florencenet smart contract address.
+  node:
+    url: "https://florence-tezos.giganode.io"
+  validation:
+    minDepth: 30
+    minAge: 2h
+  chain: "TEZOS_FLORENCENET"
+  urls:
+    api:
+      storage: "https://api.florence.tzstats.com/explorer/bigmap/$bigmapId/$rootHash"
+      transaction: "https://api.florence.tzstats.com/explorer/op/$transactionHash"
+    web:
+      provider: "http://15.236.218.133:9090" # To replace by the public URL of the REST container.
+optional-features:
+  registering:
+    enabled: false
+  #    default-signature-limit: 10
+  #    default-public-key: ""
+  #    default-private-key: ""
+  key-generation:
+    enabled: false
